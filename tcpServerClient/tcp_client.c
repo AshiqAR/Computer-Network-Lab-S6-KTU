@@ -9,12 +9,32 @@
 
 #define MSG_LEN 4096
 
+void func(int sock_fd){
+    int n ;
+    char msg[MSG_LEN];
+    // system("clear");
+    printf("\n\n-- Enter 'quit' to exit --\n\n");
+    while(strncmp(msg,"quit", 4) != 0 ){
+        bzero(msg, MSG_LEN);
+        printf("To server: ");
+
+        n = 0;
+        while((msg[n++] = getchar()) != '\n');
+
+        write(sock_fd, msg, sizeof(msg));
+        bzero(msg, MSG_LEN);
+        read(sock_fd, msg, sizeof(msg));
+        printf("[server] %s",msg);
+    }
+    printf("Client Exit\n");
+}
+
 void main(int argc, char *argv[]){
     int sock_fd;
     struct sockaddr_in sv_addr, cl_addr;
 
-    if(argc != 3){
-        printf("Usage: %s <port>",argv[0]);
+    if(argc != 2){
+        printf("Usage: %s <port>\n",argv[0]);
         exit(0);
     }
     sock_fd = socket(AF_INET, SOCK_STREAM, 0);
