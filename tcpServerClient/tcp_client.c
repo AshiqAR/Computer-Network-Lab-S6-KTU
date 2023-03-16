@@ -1,3 +1,6 @@
+// tcp connection between server and client
+// client and server communicate between each other
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
